@@ -9,21 +9,53 @@ void main(List<String> arguments) {
 
   //Задание 2.
   stdout.write('Название: ');
-  final String title = stdin.readLineSync() ?? '';
-
+  final String titleRaw = stdin.readLineSync() ?? '';
+  final String title;
+  if (titleRaw.trim().isEmpty) {
+    print('Ошибка: название не может быть пустым. Подсатвлено "Без названия".');
+    title = 'Без названия';
+  } else {
+    title = titleRaw.trim();
+  }
   stdout.write('Автор: ');
-  final String author = stdin.readLineSync() ?? 'неизвестен';
+  final String authorRaw = stdin.readLineSync() ?? 'неизвестен';
+  final String author;
+  if (authorRaw.trim().isEmpty) {
+    print('Ошибка: автор не может быть пустым. Подставлено "неизвестен".');
+    author = 'неизвестен';
+  } else {
+    author = authorRaw.trim();
+  }
 
   stdout.write('Год издания: ');
-  final int year = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+  final String yearRaw = stdin.readLineSync() ?? '';
+  final int year;
+  if (int.tryParse(yearRaw) == null) {
+    print('Ошибка: "$yearRaw" - не число. Год = 0');
+    year = 0;
+  } else {
+    year = int.parse(yearRaw);
+  }
 
   stdout.write('Количество страниц: ');
-  final int pages = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
-
+  final int pagesRaw = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+  final int pages;
+  if (pagesRaw <= 0) {
+    print('Ошибка: страниц должно быть больше 0. Подставлено 1');
+    pages = 1;
+  } else {
+    pages = pagesRaw;
+  }
   stdout.write('Оценка(0-5): ');
-  final double rating = double.tryParse(stdin.readLineSync() ?? '') ?? 0.0;
-
-  stdout.write('Прочитана?:');
+  final double ratingRaw = double.tryParse(stdin.readLineSync() ?? '') ?? 0.0;
+  final double rating;
+  if (ratingRaw < 0 || ratingRaw > 5) {
+    print('Ошибка: оценка должна быть от 0 до 5. Подставлено 0.');
+    rating = 0.0;
+  } else {
+    rating = ratingRaw;
+  }
+  stdout.write('Прочитана? (да/нет или 1/0):');
   final String readR = (stdin.readLineSync() ?? '').trim().toLowerCase();
   final bool isRead = readR == 'да';
 
@@ -45,7 +77,7 @@ void main(List<String> arguments) {
   print('');
   print('=' * 44);
   print('«$title»');
-  print('Авторы: $author');
+  print('Автор: $author');
   print('Инициалы: $initials');
   print('Год: $year (возраст: $age лет)');
   print('Страниц: $pages ($category)');
@@ -81,13 +113,13 @@ void main(List<String> arguments) {
       .toSet();
   genres.add('магический реализм');
   genres.add('магический реализм'); //дубликат не добавится
-  print('Жанры: $genres(уникальных: ${genres.length})');
+  print('Жанры: $genres (уникальных: ${genres.length})');
 
   final Map<String, int> pagesByBook = <String, int>{
     'Норвежский лес': 416,
     'Кафка на пляже': 656,
     'Охота на овец': 384,
-    'Хроника Заводной Птицы': 832,
+    'Хроники Заводной Птицы': 832,
     '1Q84': 1152,
   };
 
@@ -120,7 +152,7 @@ void main(List<String> arguments) {
 
   //Задание 5.
   print('\n   Операторы   ');
-  
+
   // "/" - вещественное деление: 7 / 2 = 3.5
   // "~/" - целочисленное деление: 7 ~/ 2 = 3
   // "%" - остаток от деления: 7 % 2 = 1
@@ -141,7 +173,7 @@ void main(List<String> arguments) {
   //ignore: dead_code
   print(true || sideEffect());
 
-  // true && ... - правый операнд вычисляется 
+  // true && ... - правый операнд вычисляется
   print(true && sideEffect());
 
   String? maybeNull;
@@ -157,11 +189,15 @@ void main(List<String> arguments) {
   finalList.add(4);
   print('finalList: $finalList');
 
-  // можно менять и ссылку, и содержимое
+  // нельзя менять и ссылку, и содержимое
   const List<int> constList = [1, 2, 3];
   print('constList: $constList');
-
-  // каскад .. - цепочка вызовов на одном объекте без промежуточных переменных 
+  try {
+    constList.add(4);
+  } catch (e) {
+    print('Попытка изменить const-список: $e');
+  }
+  // каскад .. - цепочка вызовов на одном объекте без промежуточных переменных
   final StringBuffer sb = StringBuffer()
     ..write('Book')
     ..write('Shelf')

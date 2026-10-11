@@ -26,3 +26,39 @@ Thumbs.db
 **/android/key.properties
 **/android/**/*.keystore
 **/android/**/*.jks
+
+# Локальная история редактора и логи
+.history/
+*.log
+
+# Результаты сборки и генерации
+coverage/
+**/doc/api/
+.pub-cache/
+.pub/
+migrate_working_dir/
+
+# Символы и карты обфускации
+app.*.symbols
+app.*.map.json
+
+# iOS: зависимости и генерируемые файлы
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+
+# Android: сборка
+**/android/.gradle/
+**/android/captures/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+# Менеджер версий Flutter, если пользуетесь
+.fvm/
+
+# Отчёт сдаётся в Moodle, а не в репозиторий
+*.docx
+*.odt
