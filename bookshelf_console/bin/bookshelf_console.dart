@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 void main(List<String> arguments) {
   //Задание 1.
@@ -56,8 +57,8 @@ void main(List<String> arguments) {
     rating = ratingRaw;
   }
   stdout.write('Прочитана? (да/нет или 1/0):');
-  final String readR = (stdin.readLineSync() ?? '').trim().toLowerCase();
-  final bool isRead = readR == 'да';
+  final String readR = (stdin.readLineSync(encoding: utf8) ?? '').trim().toLowerCase();
+  final bool isRead = readR == 'да' || readR == '1';
 
   //Задание 3.
   final String category = pages < 150
@@ -152,7 +153,7 @@ void main(List<String> arguments) {
 
   //Задание 5.
   print('\n   Операторы   ');
-
+  
   // "/" - вещественное деление: 7 / 2 = 3.5
   // "~/" - целочисленное деление: 7 ~/ 2 = 3
   // "%" - остаток от деления: 7 % 2 = 1
@@ -173,7 +174,7 @@ void main(List<String> arguments) {
   //ignore: dead_code
   print(true || sideEffect());
 
-  // true && ... - правый операнд вычисляется
+  // true && ... - правый операнд вычисляется 
   print(true && sideEffect());
 
   String? maybeNull;
@@ -197,7 +198,7 @@ void main(List<String> arguments) {
   } catch (e) {
     print('Попытка изменить const-список: $e');
   }
-  // каскад .. - цепочка вызовов на одном объекте без промежуточных переменных
+  // каскад .. - цепочка вызовов на одном объекте без промежуточных переменных 
   final StringBuffer sb = StringBuffer()
     ..write('Book')
     ..write('Shelf')
