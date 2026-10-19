@@ -1,0 +1,14 @@
+name: bookshelf_console
+description: BookShelf - консольный модуль ввода и вывода сведений о книге.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+ # нет зависимостей на этом этапе
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
