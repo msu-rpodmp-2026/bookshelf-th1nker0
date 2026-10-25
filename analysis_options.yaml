@@ -1,30 +1,21 @@
-# This file configures the static analysis results for your project (errors,
-# warnings, and lints).
+# Настройки анализатора для КОРНЯ репозитория.
 #
-# This enables the 'recommended' set of lints from `package:lints`.
-# This set helps identify many issues that may lead to problems when running
-# or consuming Dart code, and enforces writing Dart using a single, idiomatic
-# style and format.
+# Зачем файл нужен. В корне лежат каталоги examples/ и starters/ — это
+# самостоятельные программы к занятиям, а не часть вашего проекта. У них нет
+# своего pubspec.yaml, а Flutter-примеры и заготовки импортируют
+# package:flutter/material.dart, который в корне не подключён. Без этого файла
+# команда `dart analyze`, запущенная в корне репозитория, выдаёт больше тысячи
+# ошибок — все до одной мнимые, и разбираться в них бессмысленно.
 #
-# If you want a smaller set of lints you can change this to specify
-# 'package:lints/core.yaml'. These are just the most critical lints
-# (the recommended set includes the core lints).
-# The core lints are also what is used by pub.dev for scoring packages.
+# Ваш собственный код этот файл не затрагивает: у проектов bookshelf_console/
+# и bookshelf/ есть свои analysis_options.yaml, и при запуске анализа внутри
+# проекта действуют именно они.
+#
+# Удалять файл не нужно. Если дописываете сюда свои правила — помните, что
+# путь в exclude отсчитывается от каталога, где лежит этот файл, и за его
+# пределы (через ../) не действует.
 
-include: package:lints/recommended.yaml
-
-# Uncomment the following section to specify additional rules.
-
-# linter:
-#   rules:
-#     - camel_case_types
-
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
-
-# For more information about the core and recommended set of lints, see
-# https://dart.dev/go/core-lints
-
-# For additional information about configuring this file, see
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude:
+    - examples/**
+    - starters/**
