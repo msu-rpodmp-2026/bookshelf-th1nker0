@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:bookshelf_console/catalog.dart';
 
 void main() {
-  final counter = makeCounter(); 
+  final counter = makeCounter();
   var running = true;
   while (running) {
     printMenu();
     stdout.write('> ');
     final command = stdin.readLineSync()?.trim() ?? '';
-    
+
     counter();
 
     switch (command) {
@@ -18,16 +18,35 @@ void main() {
         break;
       case '2':
         stdout.write('Введите автора: ');
-        printAll(searchByField(library, 'author', stdin.readLineSync(encoding: utf8) ?? ''));
+        printAll(
+          searchByField(
+            library,
+            'author',
+            stdin.readLineSync(encoding: utf8) ?? '',
+          ),
+        );
         break;
       case '3':
         stdout.write('Введите название: ');
-        printAll(searchByField(library, 'title', stdin.readLineSync(encoding: utf8) ?? ''));
+        printAll(
+          searchByField(
+            library,
+            'title',
+            stdin.readLineSync(encoding: utf8) ?? '',
+          ),
+        );
         break;
       case '4':
         stdout.write('Введите жанр: ');
         final genre = stdin.readLineSync() ?? '';
-        printAll(library.where((b) => (b['genre'] as String).toLowerCase() == genre.toLowerCase()).toList());
+        printAll(
+          library
+              .where(
+                (b) =>
+                    (b['genre'] as String).toLowerCase() == genre.toLowerCase(),
+              )
+              .toList(),
+        );
         break;
       case '5':
         stdout.write('Прочитанные? (да/нет): ');

@@ -4,15 +4,78 @@ import 'dart:io';
 typedef Book = Map<String, Object?>;
 
 final List<Book> library = [
-  {'title': 'Норвежский лес', 'author': 'Х. Мураками', 'year': 1987, 'pages': 416, 'genre': 'роман', 'read': true},
-  {'title': 'Кафка на пляже', 'author': 'Х. Мураками', 'year': 2002, 'pages': 656, 'genre': 'роман', 'read': true},
-  {'title': 'Дюна', 'author': 'Ф. Герберт', 'year': 1965, 'pages': 688, 'genre': 'фантастика', 'read': true},
-  {'title': '1984', 'author': 'Дж. Оруэлл', 'year': 1949, 'pages': 320, 'genre': 'антиутопия', 'read': false},
-  {'title': '451 градус по Фаренгейту', 'author': 'Р. Брэдбери', 'year': 1953, 'pages': 256, 'genre': 'антиутопия', 'read': false},
-  {'title': 'Мастер и Маргарита', 'author': 'М. Булгаков', 'year': 1967, 'pages': 480, 'genre': 'роман', 'read': true},
-  {'title': 'Основы Dart', 'author': 'С. А. Чернышев', 'year': 2024, 'pages': 521, 'genre': 'учебник', 'read': true},
-  {'title': 'Flutter на практике', 'author': 'Ф. Заметти', 'year': 2020, 'pages': 328, 'genre': 'учебник', 'read': false},
-  {'title': 'Гарри Поттер и философский камень', 'author': 'Дж. Роулинг', 'year': 1997, 'pages': 332, 'genre': 'фэнтези', 'read': true},
+  {
+    'title': 'Норвежский лес',
+    'author': 'Х. Мураками',
+    'year': 1987,
+    'pages': 416,
+    'genre': 'роман',
+    'read': true,
+  },
+  {
+    'title': 'Кафка на пляже',
+    'author': 'Х. Мураками',
+    'year': 2002,
+    'pages': 656,
+    'genre': 'роман',
+    'read': true,
+  },
+  {
+    'title': 'Дюна',
+    'author': 'Ф. Герберт',
+    'year': 1965,
+    'pages': 688,
+    'genre': 'фантастика',
+    'read': true,
+  },
+  {
+    'title': '1984',
+    'author': 'Дж. Оруэлл',
+    'year': 1949,
+    'pages': 320,
+    'genre': 'антиутопия',
+    'read': false,
+  },
+  {
+    'title': '451 градус по Фаренгейту',
+    'author': 'Р. Брэдбери',
+    'year': 1953,
+    'pages': 256,
+    'genre': 'антиутопия',
+    'read': false,
+  },
+  {
+    'title': 'Мастер и Маргарита',
+    'author': 'М. Булгаков',
+    'year': 1967,
+    'pages': 480,
+    'genre': 'роман',
+    'read': true,
+  },
+  {
+    'title': 'Основы Dart',
+    'author': 'С. А. Чернышев',
+    'year': 2024,
+    'pages': 521,
+    'genre': 'учебник',
+    'read': true,
+  },
+  {
+    'title': 'Flutter на практике',
+    'author': 'Ф. Заметти',
+    'year': 2020,
+    'pages': 328,
+    'genre': 'учебник',
+    'read': false,
+  },
+  {
+    'title': 'Гарри Поттер и философский камень',
+    'author': 'Дж. Роулинг',
+    'year': 1997,
+    'pages': 332,
+    'genre': 'фэнтези',
+    'read': true,
+  },
 ];
 
 // Задание 3. Вывод
@@ -24,7 +87,9 @@ void printAll(List<Book> books, {String emptyMessage = 'Ничего не най
   for (int i = 0; i < books.length; i++) {
     final b = books[i];
     final readMark = b['read'] == true ? '[V]' : '[ ]';
-    print('${i + 1}. $readMark "${b['title']}" - ${b['author']} (${b['year']}, ${b['pages']} стр., ${b['genre']})');
+    print(
+      '${i + 1}. $readMark "${b['title']}" - ${b['author']} (${b['year']}, ${b['pages']} стр., ${b['genre']})',
+    );
   }
 }
 
@@ -67,22 +132,30 @@ void printStatistics(List<Book> books) {
     print('Каталог пуст.');
     return;
   }
-  
+
   final total = books.length;
   final readCount = books.where((b) => b['read'] == true).length;
-  
+
   final totalPages = books.fold<int>(0, (sum, b) => sum + (b['pages'] as int));
   final avgPages = (totalPages / total).toStringAsFixed(1);
 
-  final oldest = books.reduce((a, b) => (a['year'] as int) < (b['year'] as int) ? a : b);
-  final newest = books.reduce((a, b) => (a['year'] as int) > (b['year'] as int) ? a : b);
-  final biggest = books.reduce((a, b) => (a['pages'] as int) > (b['pages'] as int) ? a : b);
+  final oldest = books.reduce(
+    (a, b) => (a['year'] as int) < (b['year'] as int) ? a : b,
+  );
+  final newest = books.reduce(
+    (a, b) => (a['year'] as int) > (b['year'] as int) ? a : b,
+  );
+  final biggest = books.reduce(
+    (a, b) => (a['pages'] as int) > (b['pages'] as int) ? a : b,
+  );
 
   final genres = books.map((b) => b['genre']).toSet();
-  
+
   final Map<String, int> genreCounts = {};
   for (var genre in genres) {
-    genreCounts[genre as String] = books.where((b) => b['genre'] == genre).length;
+    genreCounts[genre as String] = books
+        .where((b) => b['genre'] == genre)
+        .length;
   }
 
   final percentRead = (readCount / total * 100).toStringAsFixed(1);
@@ -97,20 +170,21 @@ void printStatistics(List<Book> books) {
   print('Книг по жанрам: $genreCounts');
   print('Прочитано: $percentRead%');
 }
+
 // Задание 5. Добавление
 void addBook(List<Book> books) {
   stdout.write('Название: ');
   final title = stdin.readLineSync() ?? 'Без названия';
-  
+
   stdout.write('Автор: ');
   final author = stdin.readLineSync() ?? 'Неизвестен';
-  
+
   final year = askInt('Год издания', min: 0, max: 2026);
   final pages = askInt('Количество страниц', min: 1);
-  
+
   stdout.write('Жанр: ');
   final genre = stdin.readLineSync() ?? 'неизвестно';
-  
+
   stdout.write('Прочитана? (да/нет): ');
   final read = (stdin.readLineSync() ?? '').toLowerCase() == 'да';
 
@@ -132,8 +206,12 @@ void deleteBook(List<Book> books) {
     return;
   }
   printAll(books);
-  final index = askInt('Введите номер книги для удаления', min: 1, max: books.length);
-  
+  final index = askInt(
+    'Введите номер книги для удаления',
+    min: 1,
+    max: books.length,
+  );
+
   stdout.write('Вы уверены? (да/нет): ');
   final confirm = (stdin.readLineSync() ?? '').toLowerCase();
   if (confirm == 'да') {
@@ -166,8 +244,10 @@ int askInt(String prompt, {int min = 0, int? max}) {
     stdout.write('$prompt: ');
     value = int.tryParse(stdin.readLineSync() ?? '');
     if (value == null || value < min || (max != null && value > max)) {
-      print('Некорректное значение. Ожидается целое число'
-          '${max == null ? ' не меньше $min' : ' от $min до $max'}.');
+      print(
+        'Некорректное значение. Ожидается целое число'
+        '${max == null ? ' не меньше $min' : ' от $min до $max'}.',
+      );
       value = null;
     }
   } while (value == null);
